@@ -68,7 +68,7 @@ def deleteTag(request,pk):
             tag.delete()
             return redirect('homepageTags')
 
-    return render(request,'frontEnd/delete_tag.html',{'tag',tag})
+    return render(request,'frontEnd/delete_tag.html',{'tag':tag})
 
 def allTags(request):
     tags = Tags.objects.all()[::-1]
