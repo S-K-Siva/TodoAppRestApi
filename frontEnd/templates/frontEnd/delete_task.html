@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Management</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #F8F9FA;
+      color: #333333;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .task-card {
+      background-color: #FFFFFF;
+      border-radius: 5px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .delete-section {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .delete-message {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .btn-yes {
+      background-color: #DC3545;
+      color: #FFFFFF;
+    }
+
+    .btn-cancel {
+      background-color: #6C757D;
+      color: #FFFFFF;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <button class="btn btn-primary go-back-btn" style="margin:2rem;"onclick="window.history.back()"><i class="fas fa-arrow-left"></i> Go Back</button>
+    
+    <div class="task-card">
+      <h2>{{task.title}}</h2>
+      <p>{{task.description}}</p>
+
+      <div class="delete-section">
+        <p class="delete-message">Are you sure you want to delete this {{task.title}}?</p>
+        <form method="POST" action="">
+            {% csrf_token %}
+        <button class="btn btn-yes" type = "submit" value="Confirm" id="Confirm">Yes</button>
+        <button class="btn btn-cancel" onclick="window.history.back()">Cancel</button>
+    </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

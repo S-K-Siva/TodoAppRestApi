@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todo App</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #343a40;
+      color: #fff;
+    }
+    
+    .form-container {
+      background-color: #555;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    
+    .form-container h2 {
+      text-align: center;
+    }
+    
+    .form-group label {
+      font-weight: bold;
+    }
+    
+    .form-control {
+      background-color: #555;
+      color: #fff;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+    
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="btn btn-primary go-back-btn"  style="margin:2rem;" onclick="window.history.back()"><i class="fas fa-arrow-left"></i> Go Back</button>
+    
+    <div class="form-container">
+      <h2>Create Task</h2>
+      <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <!-- <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" class="form-control" id="title" placeholder="Enter task title">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" rows="3" placeholder="Enter task description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="tags">Tags</label>
+          <select multiple class="form-control" id="tags">
+            {% for tag in tags %}
+            <option>{{tag.name}}</option>
+            {% endfor %}
+            
+          </select>
+          <input type="text" class="form-control mt-2" id="new-tag" placeholder="Enter a new tag">
+          <button type="button" class="btn btn-secondary mt-2" id="add-tag">Add New Tag</button>
+        </div>
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select class="form-control" id="status">
+            <option>OPEN</option>
+            <option>WORKING</option>
+            <option>DONE</option>
+            <option>OVERDUE</option>
+          </select>
+        </div> -->
+        <button type="submit" class="btn btn-primary">Create Task</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script>
+    // Add New Tag
+    const addTagButton = document.getElementById('add-tag');
+    const newTagInput = document.getElementById('new-tag');
+    const tagsSelect = document.getElementById('tags');
+
+    addTagButton.addEventListener('click', () => {
+      const newTag = newTagInput.value.trim();
+      if (newTag !== '') {
+        const option = document.createElement('option');
+        option.textContent = newTag;
+        tagsSelect.appendChild(option);
+        newTagInput.value = '';
+      }
+    });
+  </script>
+
+</body>
+</html>

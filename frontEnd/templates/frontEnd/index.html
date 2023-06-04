@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todo App</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    
+    .navbar {
+      background-color: #343a40;
+    }
+    
+    .navbar-brand {
+      color: #fff;
+      font-weight: bold;
+    }
+    
+    .navbar-brand:hover {
+      color: #fff;
+    }
+    
+    .todo-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+    
+    .todo-item {
+      margin-bottom: 15px;
+      padding: 15px;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+    }
+    
+    .todo-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    .todo-tags {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 5px;
+    }
+    
+    .todo-due-date {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 5px;
+    }
+    
+    .todo-created-date {
+      font-size: 12px;
+      color: #fff;
+      background-color: #007bff;
+      padding: 3px 5px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+    
+    .btn-custom {
+      background-color: #007bff;
+      color: #fff;
+      margin-right: 5px;
+    }
+    
+    .btn-custom:hover {
+      background-color: #0056b3;
+    }
+    
+    .btn-danger-custom {
+      background-color: #dc3545;
+      color: #fff;
+      margin-right: 5px;
+    }
+    
+    .btn-danger-custom:hover {
+      background-color: #a71d2a;
+    }
+    
+    .btn-success-custom {
+      background-color: #28a745;
+      color: #fff;
+      margin-right: 5px;
+    }
+    
+    .btn-success-custom:hover {
+      background-color: #1b6e2f;
+    }
+    
+    .search-bar {
+      display: flex;
+      align-items: center;
+      margin: 0 auto;
+      max-width: 300px;
+    }
+    
+    .search-input {
+      flex: 1;
+      height: 36px;
+      padding: 0 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    
+    .btn-search {
+      margin-left: 10px;
+      background-color: #007bff;
+      color: #fff;
+    }
+    
+    .btn-search:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Todo App</a>
+      <form class="search-bar">
+        <input type="text" class="search-input" placeholder="Search Task">
+        <button type="submit" class="btn btn-search">Search</button>
+      </form>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <button class="btn btn-primary btn-create-task" style="margin-right:2rem"><a style="text-decoration: none;color:white" href="{% url 'createTask' %}">Create Task</a></button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-primary btn-create-task" style="margin-right:2rem"><a style="text-decoration: none;color:white" href="{% url 'createTag' %}">Create Tag</a></button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-primary btn-create-task" style="margin-right:2rem"><a style="text-decoration: none;color:white" href="{% url 'homepageTags' %}">All Tags</a></button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="todo-container">
+    {% for task in tasks %}
+    <div class="todo-item">
+      <div class="row">
+        <div class="col">
+          <h5 class="todo-title">{{task.title}}</h5>
+        </div>
+        <div class="col-auto">
+          <span class="todo-created-date">{{task.created | timesince}}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {% for tag in task__tags.all %}
+          <span class="todo-tags">{{tag}}</span>
+          {% endfor %}
+        </div>
+        <div class="col-auto">
+          <span class="todo-due-date">Due Date: {{task.due_date}}</span>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col">
+          <button class="btn btn-custom"><a href="{% url 'detailTask' task.id %}" style="text-decoration: none;color:white">View Description</a></button>
+          <button class="btn btn-danger"><a href="{% url 'deleteTask' task.id %}" style="text-decoration: none;color:white">Delete Task</a></button>
+          <button class="btn btn-success btn-update"><a href="{% url 'updateTask' task.id %}" style="text-decoration: none;color:white">Update Task</a></button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    <!-- Add more todo items here -->
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script>
+    // Delete Task
+    const deleteButtons = document.querySelectorAll('.btn-delete');
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const todoItem = button.closest('.todo-item');
+        todoItem.remove();
+      });
+    });
+
+    // Update Task
+    const updateButtons = document.querySelectorAll('.btn-update');
+    updateButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Perform update task action
+      });
+    });
+  </script>
+</body>
+</html>

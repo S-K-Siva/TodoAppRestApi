@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tag Management</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #F8F9FA;
+      color: #333333;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .tag-card {
+      background-color: #FFFFFF;
+      border-radius: 5px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .tag-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .tag-name {
+      font-weight: bold;
+    }
+
+    .btn-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .go-back-btn {
+      margin-bottom: 20px;
+    }
+
+    .go-back-btn i {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2 class="mb-4">Tags{{request.user}}</h2>
+    <button class="btn btn-primary go-back-btn" onclick="window.history.back()"><i class="fas fa-arrow-left"></i> Go Back</button>
+    <div class="tag-card">
+    {% for tag in tags %}
+      <div class="tag-item">
+        <div class="tag-name">{{tag.name}}</div>
+        <div class="btn-container">
+          <button class="btn btn-primary btn-update"><a href="{% url 'updateTag' tag.id %}" style="text-decoration: none;color:white;">Update</a></button>
+          <button class="btn btn-danger btn-delete"><a href="{% url 'deleteTag' tag.id %}" style="text-decoration: none;color:white;">Delete</a></button>
+        </div>
+      </div>
+      {% endfor %}
+     
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

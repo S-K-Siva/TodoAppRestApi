@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Management</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #333333;
+      color: #FFFFFF;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    .task-title-card {
+      background-color: #222222;
+      color: #FFFFFF;
+      border-radius: 5px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .task-description-card {
+      background-color: #222222;
+      color: #FFFFFF;
+      border-radius: 5px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .task-details-card {
+      background-color: #222222;
+      color: #FFFFFF;
+      border-radius: 5px;
+      padding: 20px;
+      height: 100%;
+    }
+
+    .task-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .task-description {
+      margin-top: 10px;
+    }
+
+    .task-tags {
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+    .task-status {
+      margin-top: 10px;
+    }
+
+    .task-dates {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <button class="btn btn-primary go-back-btn" style="margin:2rem;"onclick="window.history.back()"><i class="fas fa-arrow-left"></i> Go Back</button>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="task-title-card">
+          <h2 class="task-title">{{task.title}}</h2>
+        </div>
+        <div class="task-description-card">
+          <p class="task-description">{{task.description}}</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="task-details-card">
+            <p>Tags</p>
+            {% for tag in task__tags.all %}
+          <p class="task-tags">{{tag}}</p>
+          {% endfor %}
+          <p class="task-status">Status: {{task.status}}</p>
+          <p class="task-dates">Due Date: {{task.due_date}}</p>
+          <p class="task-dates">Created Date: {{task.created | timesince}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
