@@ -13,6 +13,8 @@ def createTask(request):
     form = TaskForm()
     if request.method == "POST":
         form = TaskForm(request.POST)
+        all_tags = Tags.objects.get_or_create(name=request.POST.get('new_tag'))
+
         if form.is_valid():
             form.save()
             return redirect('homepage')
